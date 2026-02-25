@@ -36,9 +36,17 @@ while( fH.CheckIfStatusChecked == false )
 Console.ForegroundColor = ConsoleColor.DarkGreen;
 Console.WriteLine("WE GOT FILE");
 
+Console.ReadLine();
+for ( int i = 0; i < args.Length; i++ )
+{
+    Console.WriteLine("Arguments: ");/*+ i + ": " + args[i]);*/
+}
+Console.WriteLine("TEST" + args[args.Length]);
+Console.ForegroundColor = ConsoleColor.DarkYellow;
 
 
-fH.ReadFile( Console.ReadLine());
+
+//fH.ReadFile( Console.ReadLine());
 
 
 
