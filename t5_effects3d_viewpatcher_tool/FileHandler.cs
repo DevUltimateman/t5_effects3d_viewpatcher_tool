@@ -81,7 +81,15 @@ namespace t5_effects3d_viewpatcher_tool
         public void WaitForFileDrop()
         {
             string? fileWeWant = Console.ReadLine();
+            FileInfo sys = new FileInfo(fileWeWant);
+
             
+        }
+
+
+        public string giveMeAppData()
+        {
+            return Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
         }
     }
 }

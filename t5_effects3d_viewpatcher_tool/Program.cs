@@ -1,14 +1,18 @@
 ﻿using System;
+using System.Diagnostics;
 using t5_effects3d_viewpatcher_tool;
 
 
+ConsoleWriter consoleWriter = new ConsoleWriter();
+ProcessStartInfo infoStarter = new ProcessStartInfo();
 //INTRO TEXT**/
-Console.ForegroundColor = ConsoleColor.Red;
-Console.WriteLine("T5 Effects3d ViewPatcher Tool");
 
-Console.ForegroundColor = ConsoleColor.DarkGreen;
-Console.WriteLine("Copyright (C) 2026 by Ultimateman.\n");
+string gameLocation = infoStarter.Verb = "open";
+consoleWriter.WriteToConsoleMainTitle();
 
+
+
+//consoleWriter.WriteToConsoleChooseGameLocation(string s);
 Console.ForegroundColor = ConsoleColor.DarkGray;
 Console.WriteLine("Do you want to clear the previous dropdown list? (Y/N)");
 
@@ -36,13 +40,23 @@ while( fH.CheckIfStatusChecked == false )
 Console.ForegroundColor = ConsoleColor.DarkGreen;
 Console.WriteLine("WE GOT FILE");
 
+Console.ForegroundColor = ConsoleColor.DarkGray;
+Console.WriteLine(fH.giveMeAppData().ToString());  
+
+//wait
 Console.ReadLine();
+
+if( args != null )
+{
+    Console.WriteLine("Arguments length: " + args.Length );
+}
 for ( int i = 0; i < args.Length; i++ )
 {
     Console.WriteLine("Arguments: ");/*+ i + ": " + args[i]);*/
 }
-Console.WriteLine("TEST" + args[args.Length]);
+
 Console.ForegroundColor = ConsoleColor.DarkYellow;
+
 
 
 
