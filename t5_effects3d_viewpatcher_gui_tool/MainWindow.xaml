@@ -19,7 +19,7 @@
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="525"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
@@ -36,27 +36,69 @@
             </Label>
 
 
-            <StackPanel Grid.Row="1" Margin="5,0,0,0"  Orientation="Horizontal">
+            <StackPanel  Margin="5,20,0,0"  Orientation="Horizontal">
                 <TextBlock Text="Select your game folder location:"
                FontSize="16"
                Foreground="DarkGray"
                ></TextBlock>
 
-                <Button  Content="Choose Folder"
+                <Button x:Name="btnFolderPicker"  Content="Choose Folder"
             Background="Transparent"
             Foreground="DarkOrange"
             FontSize="14"
-            Height="20"
+             Height="25"
+             Width="100"
             VerticalAlignment="Top"
-             Margin="20,1,0,0" Click="Button_Click"
-            ></Button>
+                         HorizontalAlignment="Right"
+                         
+             Margin="110,1,0,0" Click="btnFolderPicker_Click"
+            />
+
             </StackPanel>
 
             <TextBlock x:Name="txtGamePath" Text="not selected"
                 FontSize="12"
                 Foreground="DarkRed"
                        Margin="5,0,0,0"
-                ></TextBlock>   
+                ></TextBlock>
+
+            
+
+            <StackPanel Orientation="Horizontal"
+                        Margin="5,15,0,0"
+                        >
+
+
+                <TextBlock Text="Make a backup of existing dropdown list?"
+                   FontSize="16"
+                   Foreground="DarkGray"
+                   ></TextBlock>
+
+                <Button x:Name="btnBackUp"  Content="Back Up"
+                        Background="Transparent"
+                        Foreground="DarkGreen"
+                        FontSize="14"
+                        Height="25"
+                         Width="100"
+                        VerticalAlignment="Top"
+                                     HorizontalAlignment="Right"
+                                     
+             
+                         Margin="45,1,0,0" Click="btnBackUp_Click"
+                        />
+
+            </StackPanel>
+
+           <!--<    -->
+                  
+
+                <TextBlock x:Name="txtBackUpPath" Text="Back Up Path"
+                       FontSize="12"
+                        Foreground="DarkGray"
+                        Margin="5,0,0,0"
+                       >
+                
+            </TextBlock>
 
         </StackPanel>
 
