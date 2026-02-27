@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:t5_effects3d_viewpatcher_gui_tool"
         mc:Ignorable="d"
-        Title="T5 Effects3d Patcher GUI Tool" Height="450" Width="800">
+        Title="T5 Effects3d Patcher GUI Tool" Height="600" Width="1200"
+        ResizeMode="NoResize">
     <Grid>
 
         <Grid.Background>
@@ -19,7 +20,7 @@
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="525"/>
+            <ColumnDefinition Width="600"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
@@ -28,90 +29,78 @@
         <StackPanel Orientation="Vertical"
                     >
 
-            <Label Content="T5 Effects3d Patcher GUI Tool"
-                   FontSize="20"
-                   Width="Auto"
-                   Height="Auto"
-                   FontWeight="Bold"
-                   FontFamily="Comic Sans MS"
-                   Foreground="DarkOrange">
+            <Image x:Name="imgT5Logo" Source="/splash_logo.png"
+                   Height="125"
+                   Width="1000"
+                   Margin="0,5,0,0"
+                   Stretch="UniformToFill"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Top">
+                
+            </Image>
+            
 
-            </Label>
 
-
-            <StackPanel  Margin="5,10,0,0"  Orientation="Horizontal">
+            <StackPanel  Margin="50,25,0,0"  Orientation="Horizontal">
                 <TextBlock Text="Select your game folder location:"
                FontSize="16"
+                           FontWeight="Bold"
                Foreground="DarkGray"
                ></TextBlock>
 
                 <Button x:Name="btnFolderPicker"  Content="Choose Folder"
-            Background="Transparent"
-            Foreground="DarkOrange"
-            FontSize="14"
-             Height="25"
-             Width="100"
+            Background="DarkOrange"
+            Foreground="Black"
+            FontSize="12"
+                        FontWeight="SemiBold"
+             Height="30"
+             Width="85"
             VerticalAlignment="Top"
                          HorizontalAlignment="Right"
                          
-             Margin="110,1,0,0" Click="btnFolderPicker_Click" BorderBrush="DarkOrange"
+             Margin="110,0,0,0" Click="btnFolderPicker_Click" BorderBrush="Transparent"
             />
 
             </StackPanel>
 
-            <TextBlock x:Name="txtGamePath" Text="not selected"
+            <TextBlock x:Name="txtGamePath" Text="Game path not selected."
                 FontSize="12"
                 Foreground="DarkRed"
-                       Margin="5,0,0,0"
+                       Margin="50,5,0,0"
                 ></TextBlock>
-
             
+            <!--.lines-->
+            <Line X1="0" Y1="0" X2="500" Y2="0" Stroke="DarkGray" StrokeThickness="1" Margin="50,10,0,0"/>
 
             <StackPanel Orientation="Horizontal"
-                        Margin="5,15,0,0"
+                        Margin="50,40,0,0"
                         >
 
 
                 <TextBlock Text="Make a backup of existing dropdown list?"
                    FontSize="16"
+                           FontWeight="Bold"
                    Foreground="DarkGray"
                    ></TextBlock>
 
                 <Button x:Name="btnBackUp"  Content="Back Up"
-                        Background="Transparent"
-                        Foreground="DarkGreen"
-                        FontSize="14"
-                        Height="25"
-                         Width="100"
+                        Background="DarkSeaGreen"
+                        Foreground="Black"
+                        FontSize="12"
+                        FontWeight="SemiBold"
+                         Height="30"
+                         Width="85"
                         VerticalAlignment="Top"
                                      HorizontalAlignment="Right"
                                      
              
-                         Margin="45,1,0,0" Click="btnBackUp_Click" BorderBrush="DarkGreen"
+                         Margin="45,0,0,0" Click="btnBackUp_Click" BorderBrush="Transparent"
                         MouseEnter="btnBackUp_MouseEnter" 
                         MouseLeave="btnBackUp_MouseLeave">
                         
                         
 
-                    <Button.Style x:Uid="btnBackUp">
-                        <Style TargetType="Button">
-                            <Setter Property="Background" Value="Transparent"/>
-                            <Setter Property="Foreground" Value="DarkGreen"/>
-                            <Setter Property="BorderBrush" Value="DarkGreen"/>
-                            <Style.Triggers>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="DarkGreen"/>
-                                    <Setter Property="Foreground" Value="Transparent"/>
-                                    <Setter Property="BorderBrush" Value="DarkGreen"/>
-                                </Trigger>
-                                <Trigger Property="IsMouseOver" Value="False">
-                                    <Setter Property="Background" Value="Transparent"/>
-                                    <Setter Property="Foreground" Value="DarkGreen"/>
-                                    <Setter Property="BorderBrush" Value="DarkGreen"/>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
+                  
                         
                         
                 </Button>
@@ -122,13 +111,17 @@
                   
 
                 <TextBlock x:Name="txtBackUpPath" Text="Back Up Path"
-                       FontSize="10"
+                       FontSize="12"
                         Foreground="DarkRed"
-                        Margin="5,0,0,0"
+                        Margin="50,5,0,0"
                        >
                 
             </TextBlock>
-        
+            
+            
+            <!--ADD BUTTONS HERE TO START FX MANUALLY ETC-->
+            <Line X1="0" Y1="0" X2="500" Y2="0" Stroke="DarkGray" StrokeThickness="1" Margin="50,10,0,0"/>
+
         </StackPanel>
         
         
@@ -138,7 +131,7 @@
         <StackPanel Orientation="Vertical"
                     Grid.Column="1"
                     Grid.RowSpan="3"
-                    Margin="5">
+                    Margin="20,10,20,10">
 
 
                     <TextBlock Text="Drop fx files here onto the dark patch."
@@ -148,7 +141,7 @@
                        Height="Auto"
                        Width="auto"
                        FontFamily="Comic Sans MS"
-                       Opacity=".8"
+                       Opacity="1"
            
                        Foreground="DarkGray"
                        VerticalAlignment="Center"
@@ -161,7 +154,7 @@
                                     Margin="5"
                                     Grid.RowSpan="2"
                                     AllowDrop="True" Drop="StackPanel_Drop" 
-                                Height="385">
+                                Height="520">
 
 
                         <StackPanel.Background>

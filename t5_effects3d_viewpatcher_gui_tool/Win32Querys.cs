@@ -1,12 +1,13 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.Win32;
-using System.IO;
 using System.Windows;
-using System.Diagnostics;
+using static System.Net.WebRequestMethods;
 
 namespace t5_effects3d_viewpatcher_gui_tool
 {
@@ -57,8 +58,9 @@ namespace t5_effects3d_viewpatcher_gui_tool
                 Console.WriteLine("Folder selected successfully.");
                 string rootFolder = fs_open.FolderName;
                 Console.WriteLine($"Selected path: {rootFolder}");
-                MessageBox.Show("SELECTED PATH?? = " + rootFolder);
+                MessageBox.Show("Black Ops Root Folder Selected as:\n" + rootFolder);
                 BO_ROOT = rootFolder;
+
                 string effects3dPath = Path.Combine(rootFolder, "bin\\");
                 string effects3dFile = effects3dPath + "\\EffectsEd3--.ini";
                 //MessageBox.Show("EFFECTS3D PATH?? = " + effects3dFile);
@@ -98,25 +100,34 @@ namespace t5_effects3d_viewpatcher_gui_tool
                 string backupPath = Path.Combine(BO_ROOT, "bin\\EffectsEd3--.ini_backup_");
                 try
                 {
-                    if (File.Exists(originalPath)) //change to new concurrent ini file name instead of backupPath()
+                    //check if effectsed3.ini file exists
+                    if (System.IO.File.Exists(originalPath)) 
                     {
-                        //dev;
-                        // backupPath = 
-                        MessageBox.Show("Backup file already exists. Creating a new backup with the current date appended to the file name.");
-                        //grab time in parsable format
+                        //grab the current date and time to append to the backup file name so we dont overwrite the old backup file
                         var timeStamp = DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss");
-                        File.Copy(originalPath, backupPath + timeStamp);
-                        BO_ROOT_BACKUP_INI_FILE = backupPath + timeStamp;    
+                        System.IO.File.Copy(originalPath, backupPath + timeStamp);
+                        BO_ROOT_BACKUP_INI_FILE = backupPath + timeStamp;
+                        MessageBox.Show("Backup file already exists.\nCreating a new backup file at:\n" + BO_ROOT_BACKUP_INI_FILE );
                     }
-                    else if( !File.Exists(originalPath))
+                    else if( !System.IO.File.Exists(originalPath))
                     {
-                        //DEV
-                        MessageBox.Show("No Effects3D.ini file present.\nCreating one now.");
-                        File.CreateText(originalPath).Close();
-                        File.WriteAllText(originalPath, "This is a test write.\nThis file was created as a dummy.");
-                        MessageBox.Show("Initial ini file created at: " + originalPath);
-                        //var timeStamp = DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss");
-                        //BO_ROOT_BACKUP_INI_FILE = backupPath + timeStamp;
+                        //Write default file settings to the ini file if one doesn't exist.
+                        System.IO.File.WriteAllText(originalPath,
+                           "[Mru]\n\n" +
+                           "[Settings]\n" +
+                           "PseudoEngine DrawAxes = 1\n" +
+                           "PseudoEngine DrawWireframe = 0\n" +
+                            "PseudoEngine ShowDistance = 1\n" +
+                            "PseudoEngine ShowInfo = 0\n" +
+                            "PseudoEngine ShowTimeLeft = 1\n" +
+                            "Effect CameraLod 0 = 0\n" +
+                            "Effect CameraLod 1 = 0\n" +
+                            "Effect CameraLod 2 = 0\n" +
+                            "Effect CameraLod 3 = 0\n" +
+                            "PseudoEngine InvertCameraUp = 0\n" +
+                            "PseudoEngine DrawGlow = 1\n" );
+
+                        MessageBox.Show("Couldn't find initial EffectsEd3D.ini file.\nInitial ini file created at: \n" + originalPath);
                     }
                 }
                 catch (Exception ex)
@@ -140,9 +151,9 @@ namespace t5_effects3d_viewpatcher_gui_tool
             else
             {
                 string originalPath = Path.Combine(BO_ROOT, "bin\\EffectsEd3--.ini");
-                if (File.Exists(originalPath)) //change to new concurrent ini file name instead of backupPath()
+                if (System.IO.File.Exists(originalPath)) //change to new concurrent ini file name instead of backupPath()
                 {
-                    File.WriteAllLines(originalPath, files);
+                    System.IO.File.WriteAllLines(originalPath, files);
                 }
             }
         }

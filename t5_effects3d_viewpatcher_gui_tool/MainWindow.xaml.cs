@@ -31,6 +31,7 @@ namespace t5_effects3d_viewpatcher_gui_tool
         {
             win32Querys.MakeBackUpOfIni();
             txtBackUpPath.Text = win32Querys.BO_ROOT_BACKUP_INI_FILE;
+            txtBackUpPath.Foreground = new SolidColorBrush(Colors.DarkSeaGreen);
         }
 
         private void btnFolderPicker_Click(object sender, RoutedEventArgs e)
@@ -39,6 +40,7 @@ namespace t5_effects3d_viewpatcher_gui_tool
             win32Querys.GetBlackOpsRootFolder();
             //update the on screen text box with the selected folder path
             txtGamePath.Text = win32Querys.BO_ROOT;
+            txtGamePath.Foreground = new SolidColorBrush(Colors.DarkSeaGreen);
         }
 
         private void StackPanel_Drop(object sender, DragEventArgs e)
