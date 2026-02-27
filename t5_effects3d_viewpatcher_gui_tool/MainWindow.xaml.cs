@@ -95,7 +95,10 @@ namespace t5_effects3d_viewpatcher_gui_tool
 
                 //clear the list so that it doesnt grow infinitely
                 iniFileStruct.Clear();
-                
+
+                //lets boot into the fx viewer after we drop the files in
+                win32Querys.LaunchFxViewer();
+
             }
         }
     }

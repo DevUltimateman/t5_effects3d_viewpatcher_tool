@@ -19,8 +19,28 @@ namespace t5_effects3d_viewpatcher_gui_tool
 
         public string fxViewerExe = "effectsed3.exe"; //fx3d exe
         public string fxViewerIni = "EffectsEd3--.ini"; //fx3d ini file we modify with the new paths to the assets
-
         DateTime dates = new DateTime();
+
+        //Launch the fx3d viewer method
+        public void LaunchFxViewer()
+        {
+            //MessageBox.Show("Trying to open fx3d next debug");
+            if( BO_ROOT == null || BO_ROOT == "")
+            {
+                MessageBox.Show("Please select the Black Ops root folder first.");
+                return;
+            }
+
+            string effects3dPath = Path.Combine(BO_ROOT, "bin\\");
+            ProcessStartInfo pi = new ProcessStartInfo();
+            pi.UseShellExecute = true;
+            pi.FileName = fxViewerExe;
+            pi.WorkingDirectory = effects3dPath;
+            //MessageBox.Show(pi.WorkingDirectory);
+            MessageBox.Show("Launching Effects3D Viewer...");
+            Process.Start(pi);
+        }
+
         public void GetBlackOpsRootFolder()
         {
             OpenFolderDialog fs_open = new OpenFolderDialog
@@ -48,14 +68,7 @@ namespace t5_effects3d_viewpatcher_gui_tool
                 //MessageBox.Show("EFFECTS3D PATH?? = " + effects3dFile);
 
 
-                //MessageBox.Show("Trying to open fx3d next debug");
-                //WORKS NOW AND PASSES THE RIGHT PARAMS
-                ProcessStartInfo pi = new ProcessStartInfo();
-                pi.UseShellExecute = true;
-                pi.FileName = fxViewerExe;
-                pi.WorkingDirectory = effects3dPath;
-                //MessageBox.Show(pi.WorkingDirectory);
-                // Process.Start(pi);
+                
 
             }
 
