@@ -11,11 +11,11 @@
         <Grid.Background>
             <SolidColorBrush Color="#FF1E1E1E"/>
         </Grid.Background>
+        
         <Grid.RowDefinitions>
            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
-
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
@@ -23,6 +23,7 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
+        
 
         <StackPanel Orientation="Vertical"
                     >
@@ -53,7 +54,7 @@
             VerticalAlignment="Top"
                          HorizontalAlignment="Right"
                          
-             Margin="110,1,0,0" Click="btnFolderPicker_Click"
+             Margin="110,1,0,0" Click="btnFolderPicker_Click" BorderBrush="DarkOrange"
             />
 
             </StackPanel>
@@ -86,8 +87,34 @@
                                      HorizontalAlignment="Right"
                                      
              
-                         Margin="45,1,0,0" Click="btnBackUp_Click"
-                        />
+                         Margin="45,1,0,0" Click="btnBackUp_Click" BorderBrush="DarkGreen"
+                        MouseEnter="btnBackUp_MouseEnter" 
+                        MouseLeave="btnBackUp_MouseLeave">
+                        
+                        
+
+                    <Button.Style x:Uid="btnBackUp">
+                        <Style TargetType="Button">
+                            <Setter Property="Background" Value="Transparent"/>
+                            <Setter Property="Foreground" Value="DarkGreen"/>
+                            <Setter Property="BorderBrush" Value="DarkGreen"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="DarkGreen"/>
+                                    <Setter Property="Foreground" Value="Transparent"/>
+                                    <Setter Property="BorderBrush" Value="DarkGreen"/>
+                                </Trigger>
+                                <Trigger Property="IsMouseOver" Value="False">
+                                    <Setter Property="Background" Value="Transparent"/>
+                                    <Setter Property="Foreground" Value="DarkGreen"/>
+                                    <Setter Property="BorderBrush" Value="DarkGreen"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                        
+                        
+                </Button>
 
             </StackPanel>
 
@@ -106,33 +133,51 @@
         
         
         <!--RIGHT SIDE OF GUI-->
-
-
-        <StackPanel Grid.Column="1" 
+            
+        
+        <StackPanel Orientation="Vertical"
+                    Grid.Column="1"
                     Grid.RowSpan="3"
-                    Orientation="Horizontal"
-                    Margin="5"
-                    AllowDrop="True" Drop="StackPanel_Drop">
-            <StackPanel.Background>
-                <SolidColorBrush Color="#FF1B101D"/>
-            </StackPanel.Background>
+                    Margin="5">
+
+
+                    <TextBlock Text="Drop fx files here onto the dark patch."
+                       FontSize="14"
+                       TextWrapping="Wrap"
+           
+                       Height="Auto"
+                       Width="auto"
+                       FontFamily="Comic Sans MS"
+                       Opacity=".8"
+           
+                       Foreground="DarkGray"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center">
+                    </TextBlock>
+
+
+
+                    <StackPanel Orientation="Vertical"
+                                    Margin="5"
+                                    Grid.RowSpan="2"
+                                    AllowDrop="True" Drop="StackPanel_Drop" 
+                                Height="385">
+
+
+                        <StackPanel.Background>
+                            <SolidColorBrush Color="#FF1B101D"/>
+                        </StackPanel.Background>
+
+                    </StackPanel>
+
+            <!--THIS HERE END OF RIGHT SIDE OF GUI. CANT REALLY ADD MORE NOW IN HERE-->
+
+
+
+
         </StackPanel>
+        
 
-        <TextBlock Text="Drop fx files here onto the dark patch."
-                   FontSize="14"
-                   TextWrapping="WrapWithOverflow"
-                   
-                   Height="Auto"
-                   Width="auto"
-                   FontFamily="Comic Sans MS"
-                   Opacity=".8"
-                   
-                   Foreground="DarkGray"
-                   VerticalAlignment="Center"
-                   HorizontalAlignment="Center"
-                   Grid.Column="1"
-                   Grid.Row="1">
-
-        </TextBlock>
+        
     </Grid>
 </Window>

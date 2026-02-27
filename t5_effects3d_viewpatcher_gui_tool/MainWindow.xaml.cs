@@ -45,6 +45,12 @@ namespace t5_effects3d_viewpatcher_gui_tool
         {
             if( e.Data.GetDataPresent(DataFormats.FileDrop))
             {
+                //ADD A CHECK IF ROOT IS SELECTED, OTHERWISE IT WILL DO FUCKUPS
+                if( win32Querys.BO_ROOT == null ||win32Querys.BO_ROOT == "" )
+                {
+                    MessageBox.Show("Please select your Black Ops root folder first.");
+                    return;
+                }
                 //FILES DROPPED IN, STORE EACH PATH TO FILES IN AN ARRAY
                 string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
 
@@ -103,6 +109,35 @@ namespace t5_effects3d_viewpatcher_gui_tool
                     win32Querys.LaunchFxViewer();
                 }
             }
+        }
+
+        private void btnBackUp_MouseEnter(object sender, MouseEventArgs e)
+        {
+            //DONT DO NONE NOW
+            /*
+           sender.GetType().GetProperty("Effect").SetValue(sender, new DropShadowEffect
+            {
+                Color = Colors.White,
+                Direction = 15,
+                ShadowDepth = 0,
+                Opacity = 1,
+                BlurRadius = 15
+            });
+            */
+
+            
+        }
+
+        private void btnBackUp_MouseLeave(object sender, MouseEventArgs e)
+        {
+            sender.GetType().GetProperty("Effect").SetValue(sender, new DropShadowEffect
+            {
+                Color = Colors.Transparent,
+                Direction = 0,
+                ShadowDepth = 0,
+                Opacity = 0,
+                BlurRadius = 0
+            });
         }
     }
 }
