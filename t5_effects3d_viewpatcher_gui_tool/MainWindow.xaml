@@ -93,15 +93,26 @@
                   
 
                 <TextBlock x:Name="txtBackUpPath" Text="Back Up Path"
-                       FontSize="12"
-                        Foreground="DarkGray"
+                       FontSize="10"
+                        Foreground="DarkRed"
                         Margin="5,0,0,0"
                        >
                 
             </TextBlock>
-
-        </StackPanel>
-
         
+        </StackPanel>
+        
+        
+        <!--RIGHT SIDE OF GUI-->
+
+
+        <StackPanel Grid.Column="1" 
+                    Grid.RowSpan="3"
+                    Orientation="Horizontal"
+                    AllowDrop="True" Drop="StackPanel_Drop">
+            <StackPanel.Background>
+                <SolidColorBrush Color="AntiqueWhite"/>
+            </StackPanel.Background>
+        </StackPanel>
     </Grid>
 </Window>

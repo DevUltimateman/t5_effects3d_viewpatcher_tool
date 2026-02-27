@@ -101,8 +101,7 @@ namespace t5_effects3d_viewpatcher_gui_tool
                         //grab time in parsable format
                         var timeStamp = DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss");
                         File.Copy(originalPath, backupPath + timeStamp);
-                        BO_ROOT_BACKUP_INI_FILE = backupPath + timeStamp;
-                        
+                        BO_ROOT_BACKUP_INI_FILE = backupPath + timeStamp;    
                     }
                     else if( !File.Exists(originalPath))
                     {
@@ -110,13 +109,35 @@ namespace t5_effects3d_viewpatcher_gui_tool
                         MessageBox.Show("No Effects3D.ini file present.\nCreating one now.");
                         File.CreateText(originalPath).Close();
                         File.WriteAllText(originalPath, "This is a test write.\nThis file was created as a dummy.");
-                        MessageBox.Show("Dummy ini file created at: " + dummyPath);
-
+                        MessageBox.Show("Initial ini file created at: " + originalPath);
+                        //var timeStamp = DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss");
+                        //BO_ROOT_BACKUP_INI_FILE = backupPath + timeStamp;
                     }
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show("Error creating backup: " + ex.Message);
+                }
+            }
+        }
+
+
+        public void WriteToExistingFile( string[] files)
+        {
+            //we must check if user has selected the black ops root folder first before we can make a backup of the ini file
+            
+            if (BO_ROOT == null || BO_ROOT == "")
+            {
+                MessageBox.Show("Please select the Black Ops root folder first.");
+                return;
+            }
+
+            else
+            {
+                string originalPath = Path.Combine(BO_ROOT, "bin\\EffectsEd3--.ini");
+                if (File.Exists(originalPath)) //change to new concurrent ini file name instead of backupPath()
+                {
+                    File.WriteAllLines(originalPath, files);
                 }
             }
         }
