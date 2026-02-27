@@ -29,6 +29,8 @@
 
             <Label Content="T5 Effects3d Patcher GUI Tool"
                    FontSize="20"
+                   Width="Auto"
+                   Height="Auto"
                    FontWeight="Bold"
                    FontFamily="Comic Sans MS"
                    Foreground="DarkOrange">
@@ -36,7 +38,7 @@
             </Label>
 
 
-            <StackPanel  Margin="5,20,0,0"  Orientation="Horizontal">
+            <StackPanel  Margin="5,10,0,0"  Orientation="Horizontal">
                 <TextBlock Text="Select your game folder location:"
                FontSize="16"
                Foreground="DarkGray"
@@ -109,10 +111,28 @@
         <StackPanel Grid.Column="1" 
                     Grid.RowSpan="3"
                     Orientation="Horizontal"
+                    Margin="5"
                     AllowDrop="True" Drop="StackPanel_Drop">
             <StackPanel.Background>
-                <SolidColorBrush Color="AntiqueWhite"/>
+                <SolidColorBrush Color="#FF1B101D"/>
             </StackPanel.Background>
         </StackPanel>
+
+        <TextBlock Text="Drop fx files here onto the dark patch."
+                   FontSize="14"
+                   TextWrapping="WrapWithOverflow"
+                   
+                   Height="Auto"
+                   Width="auto"
+                   FontFamily="Comic Sans MS"
+                   Opacity=".8"
+                   
+                   Foreground="DarkGray"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"
+                   Grid.Column="1"
+                   Grid.Row="1">
+
+        </TextBlock>
     </Grid>
 </Window>

@@ -61,15 +61,7 @@ namespace t5_effects3d_viewpatcher_gui_tool
                 BO_ROOT = rootFolder;
                 string effects3dPath = Path.Combine(rootFolder, "bin\\");
                 string effects3dFile = effects3dPath + "\\EffectsEd3--.ini";
-
-
-
-
                 //MessageBox.Show("EFFECTS3D PATH?? = " + effects3dFile);
-
-
-                
-
             }
 
 
@@ -152,6 +144,32 @@ namespace t5_effects3d_viewpatcher_gui_tool
                 {
                     File.WriteAllLines(originalPath, files);
                 }
+            }
+        }
+
+        public bool isRunning(string pName)
+        {
+            try
+            {
+                Process.GetProcessesByName(pName);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        public bool isRunningByID()
+        {
+            try
+            {
+                Process.GetProcessById(13944);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
             }
         }
     }

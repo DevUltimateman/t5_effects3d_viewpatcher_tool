@@ -1,5 +1,7 @@
 ﻿//necessary for file explorer dialog
 using Microsoft.Win32;
+using System.Diagnostics;
+using System.Security.Cryptography;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -25,13 +27,6 @@ namespace t5_effects3d_viewpatcher_gui_tool
             
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            
-            
-
-        }
-
         private void btnBackUp_Click(object sender, RoutedEventArgs e)
         {
             win32Querys.MakeBackUpOfIni();
@@ -50,29 +45,25 @@ namespace t5_effects3d_viewpatcher_gui_tool
         {
             if( e.Data.GetDataPresent(DataFormats.FileDrop))
             {
-                //get files that we drop into the stackpanel
+                //FILES DROPPED IN, STORE EACH PATH TO FILES IN AN ARRAY
                 string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
 
-
+                //THIS IS THE LIST WE POPULATE AND READ FROM, TO WRITE TO THE INI FILE.
                 List<string> iniFileStruct = new();
-                
 
-                //lets do the rmu check here
-               //string[] iniFileStruct = [];
-                //iniFileStruct[0] = "[Mru]";
-
-
+                //WE HAVE PLENTY OF FILES
                 if( files.Length > 0 )
                 {
+                    //initial "MRU" section so that the fxviewer can read the files we add to the ini file
                     iniFileStruct.Add("[Mru]");
+
                     for (int i = 0; i < files.Length; i++)
                     {
-                        //iniFileStruct[i + 1] = i + "=" + files[i];
+                        //ini fx file format = "0=C:\path\to\file.fx"
                         iniFileStruct.Add(i + "=" + files[i]);
                     }
 
                     //WE WANT TO WRITE THE FXVIEWER SETTINGS HERE IN THE END!! 
-
                     iniFileStruct.Add("[Settings]");
                     iniFileStruct.Add("PseudoEngine DrawAxes = 1");
                     iniFileStruct.Add("PseudoEngine DrawWireframe = 0");
@@ -93,12 +84,24 @@ namespace t5_effects3d_viewpatcher_gui_tool
 
                 }
 
-                //clear the list so that it doesnt grow infinitely
+                //clear the list so that it doesnt grow indefinitely
                 iniFileStruct.Clear();
 
-                //lets boot into the fx viewer after we drop the files in
-                win32Querys.LaunchFxViewer();
 
+                //lets boot into the fx viewer after we drop the files in
+
+                //first check if we are already running the fxviewer process, if so we dont want to launch another instance of it before closing it.
+                //bool isFxViewerRunning = win32Querys.isRunning("effectsed3");
+                if (win32Querys.isRunning("effectsed3"))
+                {
+                    var progma = Process.GetProcessesByName("effectsed3");
+                    if( progma.Length > 0 )
+                    {
+                        progma[0].Kill();
+                    }
+                    else { /*MessageBox.Show("NO PROCESS 'effectsEd3D' FOUND"); */ }
+                    win32Querys.LaunchFxViewer();
+                }
             }
         }
     }
