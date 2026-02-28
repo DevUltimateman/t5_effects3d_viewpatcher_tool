@@ -20,6 +20,8 @@ namespace t5_effects3d_viewpatcher_gui_tool
 
         public string fxViewerExe = "effectsed3.exe"; //fx3d exe
         public string fxViewerIni = "EffectsEd3--.ini"; //fx3d ini file we modify with the new paths to the assets
+
+
         DateTime dates = new DateTime();
 
         //Launch the fx3d viewer method
@@ -38,8 +40,19 @@ namespace t5_effects3d_viewpatcher_gui_tool
             pi.FileName = fxViewerExe;
             pi.WorkingDirectory = effects3dPath;
             //MessageBox.Show(pi.WorkingDirectory);
-            MessageBox.Show("Launching Effects3D Viewer...");
+            //MessageBox.Show("Launching Effects3D Viewer...");
             Process.Start(pi);
+        }
+
+        public void CloseFxViewer()
+        {
+            if (isRunning("effectsed3"))
+            {
+                foreach (var process in Process.GetProcessesByName("effectsed3"))
+                {
+                    process.Kill();
+                }
+            }
         }
 
         public void GetBlackOpsRootFolder()
@@ -57,8 +70,8 @@ namespace t5_effects3d_viewpatcher_gui_tool
             {
                 Console.WriteLine("Folder selected successfully.");
                 string rootFolder = fs_open.FolderName;
-                Console.WriteLine($"Selected path: {rootFolder}");
-                MessageBox.Show("Black Ops Root Folder Selected as:\n" + rootFolder);
+                //Console.WriteLine($"Selected path: {rootFolder}");
+                //MessageBox.Show("Black Ops Root Folder Selected as:\n" + rootFolder);
                 BO_ROOT = rootFolder;
 
                 string effects3dPath = Path.Combine(rootFolder, "bin\\");
@@ -70,7 +83,7 @@ namespace t5_effects3d_viewpatcher_gui_tool
             //we didnt select a folder and click cancel or close the dialog
             else if (ok == false)
             {
-                MessageBox.Show("No folder selected.!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                MessageBox.Show("No folder selected.");
                 Console.WriteLine("No folder selected.");
                 return;
             }

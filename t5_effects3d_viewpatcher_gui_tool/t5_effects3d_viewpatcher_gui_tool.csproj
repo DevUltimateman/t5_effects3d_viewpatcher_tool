@@ -10,10 +10,12 @@
 
   <ItemGroup>
     <None Remove="splash_logo.png" />
+    <None Remove="tool.png" />
   </ItemGroup>
 
   <ItemGroup>
     <Resource Include="splash_logo.png" />
+    <Resource Include="tool.png" />
   </ItemGroup>
 
 </Project>

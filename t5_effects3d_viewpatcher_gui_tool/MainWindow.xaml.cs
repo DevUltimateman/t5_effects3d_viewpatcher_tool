@@ -21,10 +21,14 @@ namespace t5_effects3d_viewpatcher_gui_tool
         //grab win32 class once
         Win32Querys win32Querys = new Win32Querys();
 
+        public List<string> INI_FILE_STRUCT = new();
+        public List<string> NEW_FILES = new();
         public MainWindow()
         {
             InitializeComponent();
-            
+
+            //check if we have root checker file, if so then populate txtGamePath
+
         }
 
         private void btnBackUp_Click(object sender, RoutedEventArgs e)
@@ -56,45 +60,114 @@ namespace t5_effects3d_viewpatcher_gui_tool
                 //FILES DROPPED IN, STORE EACH PATH TO FILES IN AN ARRAY
                 string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
 
-                //THIS IS THE LIST WE POPULATE AND READ FROM, TO WRITE TO THE INI FILE.
-                List<string> iniFileStruct = new();
-
-                //WE HAVE PLENTY OF FILES
-                if( files.Length > 0 )
+                //WE HAVE DROPPED FILES HERE
+                if ( files.Length > 0 )
                 {
-                    //initial "MRU" section so that the fxviewer can read the files we add to the ini file
-                    iniFileStruct.Add("[Mru]");
 
-                    for (int i = 0; i < files.Length; i++)
+                   
+
+                    if (NEW_FILES.Count() > 0)
                     {
-                        //ini fx file format = "0=C:\path\to\file.fx"
-                        iniFileStruct.Add(i + "=" + files[i]);
+                        NEW_FILES.Clear();
+                    }
+                    if(lstDroppedFiles.Items.Count > 0 )
+                    {
+                        lstDroppedFiles.Items.Clear();
+                    }
+                    if ( files.Length > 7 )
+                    {
+                        //List<string> NEW_FILES = new();
+                        for ( int u = 0; u < 7; u++ )
+                        {
+                            NEW_FILES.Add( files[u] );
+                            
+                        }
+                        MessageBox.Show("Removed " + ( files.Length - NEW_FILES.Count() ) + " files from the loader pipeline.\nYou can load only 8 files at a time.");
+                        for (int s = 0; s < NEW_FILES.Count(); s++)
+                        {
+                            //MessageBox.Show("ADDING FILE " + s + " / " + NEW_FILES.Count() );
+                            lstDroppedFiles.Items.Add(NEW_FILES[s]);
+
+                        }
+                        INI_FILE_STRUCT.Add("[Mru]");
+
+                        for (int i = 0; i < NEW_FILES.Count(); i++)
+                        {
+
+                            //ini fx file format = "0=C:\path\to\file.fx"
+                            INI_FILE_STRUCT.Add(i + "=" + NEW_FILES[i]);
+                        }
+
+                        //WE WANT TO WRITE THE FXVIEWER SETTINGS HERE IN THE END!! 
+                        INI_FILE_STRUCT.Add("[Settings]");
+                        INI_FILE_STRUCT.Add("PseudoEngine DrawAxes = 1");
+                        INI_FILE_STRUCT.Add("PseudoEngine DrawWireframe = 0");
+                        INI_FILE_STRUCT.Add("PseudoEngine ShowDistance = 1");
+                        INI_FILE_STRUCT.Add("PseudoEngine ShowInfo = 0");
+                        INI_FILE_STRUCT.Add("PseudoEngine ShowTimeLeft = 1");
+                        INI_FILE_STRUCT.Add("Effect CameraLod 0 = 0");
+                        INI_FILE_STRUCT.Add("Effect CameraLod 1 = 0");
+                        INI_FILE_STRUCT.Add("Effect CameraLod 2 = 0");
+                        INI_FILE_STRUCT.Add("Effect CameraLod 3 = 0");
+                        INI_FILE_STRUCT.Add("PseudoEngine InvertCameraUp = 0");
+                        INI_FILE_STRUCT.Add("PseudoEngine DrawGlow = 1");
+                        INI_FILE_STRUCT.Add("");
+                        INI_FILE_STRUCT.Add("");
+
+                        win32Querys.WriteToExistingFile(INI_FILE_STRUCT.ToArray());
+                        //MessageBox.Show("Fx files added to dropdown list successfully!\nAdded a total of: " + files.Length + " files.");  
+                    }
+                    else
+                    {
+
+                        for (int u = 0; u < files.Length; u++)
+                        {
+                            NEW_FILES.Add(files[u]);
+
+                        }
+                        for (int s = 0; s < NEW_FILES.Count(); s++)
+                        {
+                            //MessageBox.Show("ADDING FILE " + s + " / " + NEW_FILES.Count() );
+                            lstDroppedFiles.Items.Add(NEW_FILES[s]);
+
+                        }
+                        INI_FILE_STRUCT.Add("[Mru]");
+
+                        for (int i = 0; i < NEW_FILES.Count(); i++)
+                        {
+
+                            //ini fx file format = "0=C:\path\to\file.fx"
+                            INI_FILE_STRUCT.Add(i + "=" + NEW_FILES[i]);
+                        }
+
+                        //WE WANT TO WRITE THE FXVIEWER SETTINGS HERE IN THE END!! 
+                        INI_FILE_STRUCT.Add("[Settings]");
+                        INI_FILE_STRUCT.Add("PseudoEngine DrawAxes = 1");
+                        INI_FILE_STRUCT.Add("PseudoEngine DrawWireframe = 0");
+                        INI_FILE_STRUCT.Add("PseudoEngine ShowDistance = 1");
+                        INI_FILE_STRUCT.Add("PseudoEngine ShowInfo = 0");
+                        INI_FILE_STRUCT.Add("PseudoEngine ShowTimeLeft = 1");
+                        INI_FILE_STRUCT.Add("Effect CameraLod 0 = 0");
+                        INI_FILE_STRUCT.Add("Effect CameraLod 1 = 0");
+                        INI_FILE_STRUCT.Add("Effect CameraLod 2 = 0");
+                        INI_FILE_STRUCT.Add("Effect CameraLod 3 = 0");
+                        INI_FILE_STRUCT.Add("PseudoEngine InvertCameraUp = 0");
+                        INI_FILE_STRUCT.Add("PseudoEngine DrawGlow = 1");
+                        INI_FILE_STRUCT.Add("");
+                        INI_FILE_STRUCT.Add("");
+
+                        win32Querys.WriteToExistingFile(INI_FILE_STRUCT.ToArray());
+                        //MessageBox.Show("Fx files added to dropdown list successfully!\nAdded a total of: " + files.Length + " files.");  
                     }
 
-                    //WE WANT TO WRITE THE FXVIEWER SETTINGS HERE IN THE END!! 
-                    iniFileStruct.Add("[Settings]");
-                    iniFileStruct.Add("PseudoEngine DrawAxes = 1");
-                    iniFileStruct.Add("PseudoEngine DrawWireframe = 0");
-                    iniFileStruct.Add("PseudoEngine ShowDistance = 1");
-                    iniFileStruct.Add("PseudoEngine ShowInfo = 0");
-                    iniFileStruct.Add("PseudoEngine ShowTimeLeft = 1");
-                    iniFileStruct.Add("Effect CameraLod 0 = 0");
-                    iniFileStruct.Add("Effect CameraLod 1 = 0");
-                    iniFileStruct.Add("Effect CameraLod 2 = 0");
-                    iniFileStruct.Add("Effect CameraLod 3 = 0");
-                    iniFileStruct.Add("PseudoEngine InvertCameraUp = 0");
-                    iniFileStruct.Add("PseudoEngine DrawGlow = 1");
-                    iniFileStruct.Add("");
-                    iniFileStruct.Add("");
-                    
-                    win32Querys.WriteToExistingFile(iniFileStruct.ToArray() );
-                    MessageBox.Show("Fx files added to dropdown list successfully!\nAdded a total of: " + files.Length + " files."); 
+
+
+
 
                 }
 
                 //clear the list so that it doesnt grow indefinitely
-                iniFileStruct.Clear();
-
+                
 
                 //lets boot into the fx viewer after we drop the files in
 
@@ -114,20 +187,7 @@ namespace t5_effects3d_viewpatcher_gui_tool
         }
 
         private void btnBackUp_MouseEnter(object sender, MouseEventArgs e)
-        {
-            //DONT DO NONE NOW
-            /*
-           sender.GetType().GetProperty("Effect").SetValue(sender, new DropShadowEffect
-            {
-                Color = Colors.White,
-                Direction = 15,
-                ShadowDepth = 0,
-                Opacity = 1,
-                BlurRadius = 15
-            });
-            */
-
-            
+        {   
         }
 
         private void btnBackUp_MouseLeave(object sender, MouseEventArgs e)
@@ -139,6 +199,25 @@ namespace t5_effects3d_viewpatcher_gui_tool
                 ShadowDepth = 0,
                 Opacity = 0,
                 BlurRadius = 0
+            });
+        }
+
+        private void btnLaunchFxStandalone_Click(object sender, RoutedEventArgs e)
+        {
+            win32Querys.LaunchFxViewer();
+        }
+
+        private void btnCloseFxStandalone_Click(object sender, RoutedEventArgs e)
+        {
+            win32Querys.CloseFxViewer();
+        }
+
+        private void btnDonateFxStandalone_Click(object sender, RoutedEventArgs e)
+        {
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = "https://www.paypal.com/donate/?hosted_button_id=WM4SLXZWT99Y4",
+                UseShellExecute = true
             });
         }
     }
